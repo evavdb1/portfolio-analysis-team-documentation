@@ -1,7 +1,7 @@
 # Portfolio Analysis Team Documentation 
 
-*A curated collection of my contributions to various team software projects, 
-focusing on analysis, collaboration and development processes*
+*A curated collection of my contributions to various team software projects.
+Focusing on analysis, collaboration and development processes*
 ---
 
 ## Tech Stack
@@ -33,5 +33,29 @@ Each project has its own folder containing:
 
 ---
 ```
-TREE
+├── P1-console casino/
+│   ├── P1_README.md
+│   └── docs/
+│       ├── analysis/
+│       ├── uml/
+│       ├── process/
+│       └── presentation/
+│
+├── P2-console library system/
+│   ├── P2_README.md
+│   └── docs/
+│       ├── analysis/
+│       ├── uml/
+│       ├── process/
+│       └── presentation/
+│
+├── P3-website blog central/
+│   ├── P3_README.md
+│   └── docs/
+│       ├── analysis/
+│       ├── uml/
+│       ├── process/
+│       └── presentation/
+│
+└── README.md
 ```
