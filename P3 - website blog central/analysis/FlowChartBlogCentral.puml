@@ -1,0 +1,118 @@
+@startuml
+start
+
+:Client (Postman);
+
+if (Has JWT token?) then (No)
+    :Public access;
+    if (Request = Register) then (Yes)
+        :POST /api/users/register;
+        :Validate input;
+        :Save user (hashed password);
+        stop
+    endif
+
+    if (Request = Login) then (Yes)
+        :POST /api/auth/login;
+        :Authenticate credentials;
+        :Generate JWT;
+        stop
+    endif
+
+    if (Request = View blogposts) then (Yes)
+        :GET /api/blogposts;
+        :Apply sort + pagination;
+        :Return posts;
+        stop
+    endif
+
+    if (Request = Blogpost details) then (Yes)
+        :GET /api/blogposts/{id};
+        :Return post + comments;
+        stop
+    endif
+
+    if (Request = Search) then (Yes)
+        :GET /api/search?q=;
+        :Search users + blogposts;
+        stop
+    endif
+
+    :401 Unauthorized;
+    stop
+
+
+else (Yes)
+    :JWTAuthenticationFilter;
+    :Validate token;
+    if (Token valid?) then (No)
+        :401 Unauthorized;
+        stop
+    endif
+
+    :Set Authentication Context;
+    :Mark user online;
+
+    if (Request = Create blogpost) then (Yes)
+        :POST /api/blogposts;
+        :Check logged-in user;
+        :Save blogpost;
+        stop
+    endif
+
+    if (Request = Edit/Delete blogpost) then (Yes)
+        :PUT/DELETE /api/blogposts/{id};
+        if (Is author?) then (Yes)
+            :Update/Delete post;
+            stop
+        else (No)
+            :403 Forbidden;
+            stop
+        endif
+    endif
+
+
+    if (Request = Like blogpost) then (Yes)
+        :POST /api/blogposts/{id}/like;
+        :Increase likes;
+        stop
+    endif
+
+    if (Request = Add comment) then (Yes)
+        :POST /api/blogposts/{id}/comments;
+        :Save comment;
+        stop
+    endif
+
+    if (Request = Edit/Delete comment) then (Yes)
+        :PUT/DELETE /api/comments/{id};
+        if (Is comment author?) then (Yes)
+            :Update/Delete comment;
+            stop
+        else (No)
+            if (Is blogpost author?) then (Yes)
+                :Moderation delete;
+                stop
+            else (No)
+                :403 Forbidden;
+                stop
+            endif
+        endif
+    endif
+
+    if (Request = Profile) then (Yes)
+        :GET/PUT/DELETE /api/users/{id};
+        :Check ownership;
+        :Process request;
+        stop
+    endif
+
+    if (Request = Stats) then (Yes)
+        :GET /api/stats/online;
+        :GET /api/stats/visitors;
+        stop
+    endif
+endif
+
+stop
+@enduml

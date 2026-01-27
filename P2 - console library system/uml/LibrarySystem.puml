@@ -1,0 +1,166 @@
+
+@startuml
+class LibrarySystem {
+  + {static} Main(args: String[]): void
+}
+class Book {
+    - bookId: String
+    - title: String
+    - authorName: String
+    - publicationYear: int
+    - isbn: String
+    - status: BookStatus
+    - softDeleted: boolean
+    + isSoftDeleted(): boolean
+    + isAvailable(): boolean
+    + isCheckedOut(): boolean
+    + isRemoved(): boolean
+    + isReserved(): boolean
+    - formatAuthorName(lastNameAuthor, firstNameAuthor): String
+    - formatFirstName(name): String
+}
+class Member {
+    - memberId: String
+    - firstName: String
+    - lastName: String
+    - email: String
+    + getInitials(): String
+    + getFullName(): String
+}
+class Loan {
+    - loanId: String
+    - loanDate: LocalDate
+    - dueDate:LocalDate
+    - returnDate: LocalDate
+    - state: LoanState
+    - book: Book
+    - member: Member
+    + isActive(): boolean
+    + isReturned(): boolean
+    + isOverdue(): boolean
+    + markOverdue(): void
+    + getOverdueDays(): int
+}
+enum BookStatus {
+    AVAILABLE
+    CHECKED_OUT
+    REMOVED
+    RESERVED
+}
+enum LoanState {
+    ACTIVE
+    RETURNED
+    OVERDUE
+}
+
+class BookRepository {
+    + saveBook(book: Book): void
+    + updateBook(book: Book): boolean
+    + findAllBooks(): List<Book>
+    + findBookById(bookId: String): Optional<Book>
+    + findBookByTitle(): List<Book>
+    + findBookByAuthorLastName(): List<Book>
+    + findBookByIsbn(): List<Book>
+}
+class MemberRepository {
+    + saveMember(member: Member): void
+    + updateMember(member: Member): boolean
+    + findAllMembers(): List<Member>
+    + findMemberById(memberId: String): Optional<Member>
+    + findMemberByLastName(lastName: String): List<Member>
+}
+class LoanRepository {
+    - bookRepository: BookRepository
+    - memberRepository: MemberRepository
+    + saveLoan(loan: Loan): void
+    + updateLoan(loan: Loan): boolean
+    + findAllLoans(): List<Loan>
+    + findActiveOrOverdueLoans(bookId: String): Optional<Loan>
+    + findMemberLoanHistory(memberId: String): List<Loan>
+    + findLoanById(loanId: String): Optional<Loan>
+    + findActiveLoansByBookId(bookId: String): List<Loan>
+    + findActiveLoansByMemberId(memberId: String): List<Loan>
+    + findLoanByIsbn(isbn: String): List<Loan>
+    + findLoansByDueDate(dueDate: LocalDate): List<Loan>
+}
+class BookService {
+    - bookRepository: BookRepository
+    - loanService: LoanService
+    + setLoanService(loanService: LoanService): void
+    + addBook(book: Book): void
+    + updateBook(book: Book): boolean
+    + softDeleteBook(book: Book): boolean
+    + undoSoftDelete(book: Book): boolean
+    + getAllBooks(): List<Book>
+    + getBookById(bookId: String): Optional<Book>
+    + getBookByTitle(title: String): List<Book>
+    + getBookByAuthor(lastNameAuthor: String): List<Book>
+    + getBookByIsbn(isbn: String): List<Book>
+}
+class MemberService {
+    - memberRepo: MemberRepository
+    + addMember(member: Member): void
+    + updateMember(member: Member): boolean
+    + getAllMembers(): List<Member>
+    + getMemberById(memberId: String): Optional<member>
+    + getMemberByLastName(lastName: String): List<Member>
+    + changeEmail(memberId: String, newEmail: String): boolean
+}
+class LoanService {
+    - loanRepository: LoanRepository
+    - bookRepository: BookRepository
+    - memberRepository: MemberRepository
+    + LoanService(loanRepository: LoanRepository, bookService: BookService, memberService: MemberService)
+    + createLoan(bookId: String, memberId: String): LoanResult
+    + returnByLoanId(loan: Loan): void
+    + returnByBookId(bookId: String): void
+    + returnAllByMemberId(memberId: String): void
+    + updateLoan(loan: Loan): boolean
+    + updateOverdueLoans(): void
+    + getNextAvailableDate()(loan: Loan): String
+    + getMemberLoanHistory(memberId: String): List<Loan>
+    + getActiveOrOverdueLoans(bookId: String): Optional<Loan>
+    + calculateFine(loan: Loan): double
+}
+class BookStorage {
+    - {static} BOOKS: String
+    + {static} loadBooksFromFile(): List<Book>
+    + {static} appendBookToFile(book: Book): void
+    + {static} generateNextBookId(): String
+    + {static} updateBook(book: Book): boolean
+}
+class MemberStorage {
+    - {static} MEMBERS: String
+    + {static} loadMembersFromFile(): List<Member>
+    + {static} appendMemberToFile(member: Member): void
+    + {static} generateNextMemberId(): String
+    + {static} updateMember(member: Member): boolean
+}
+class LoanStorage {
+    - {static} LOANS: String
+    + {static} loadLoansFromFile( bookRepo: BookRepository, memberRepo: MemberRepository): List<Loan>
+    + {static} appendLoanToFile(loan: Loan): void
+    + {static} generateNextLoanId(): String
+    + {static} updateLoan(loan: Loan): boolean
+}
+
+Loan --> Book
+Loan --> Member
+Loan --> LoanState
+Book --> BookStatus
+
+LoanStorage --> Loan
+BookStorage --> Book
+MemberStorage --> Member
+
+BookService --> BookRepository
+LoanService --> LoanRepository
+LoanService --> BookService
+LoanService --> MemberService
+MemberService --> MemberRepository
+
+BookRepository --> BookStorage
+MemberRepository --> MemberStorage
+LoanRepository --> LoanStorage
+
+@enduml

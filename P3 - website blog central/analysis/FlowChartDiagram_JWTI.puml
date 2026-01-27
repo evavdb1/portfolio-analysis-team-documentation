@@ -1,0 +1,33 @@
+@startuml Flow_Part_1
+title JWT Authentication Flow (BlogCentral)
+
+start
+
+:HTTP request arrives;
+
+if (Public endpoint?) then (yes)
+  :Skip JWT filter;
+  :Controller executes;
+  stop
+endif
+
+:JWTAuthenticationFilter;
+
+if (Authorization header present?) then (no)
+  :No Bearer token;
+  :Continue filter chain;
+  :SecurityConfig denies access;
+  :401 Unauthorized;
+  stop
+endif
+
+if (Token starts with "Bearer "?) then (no)
+  :Invalid header format;
+  :401 Unauthorized;
+  stop
+endif;
+
+:Go to Part 2;
+stop
+@enduml
+

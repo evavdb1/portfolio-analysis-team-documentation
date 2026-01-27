@@ -1,0 +1,31 @@
+@startuml Flow_Part_2
+start
+:From Part 1;
+
+:Extract JWT token;
+
+if (Token valid?) then (no)
+  :Invalid or expired token;
+  :401 Unauthorized;
+  stop
+endif
+
+:Extract username from token;
+:Load UserDetails from database;
+
+:Create Authentication object;
+:Set Authentication in SecurityContext;
+
+:Continue filter chain;
+
+if (Authorized for endpoint?) then (no)
+  :403 Forbidden;
+  stop
+endif
+
+:Controller method executes;
+:Service layer executes;
+:Return response;
+
+stop
+@enduml

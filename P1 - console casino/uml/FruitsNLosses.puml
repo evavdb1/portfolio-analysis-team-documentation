@@ -1,0 +1,61 @@
+@startuml
+         class Main {
+         + {static} Main(args: String[]): void
+         }
+         Main -- Player
+         class Player {
+         - name: String
+         - wallet: int
+         + walletOut(amount: int): void
+         + walletIn(amount: int): void
+         }
+         Player --> ClawMachine: plays
+         class ClawMachine {
+         - numberOfTries: int
+         - moneyInTheBank: int
+         + {static} GAME_COST: int
+         + readyToWin(): boolean
+         + readyToWinBigTime(): boolean
+         + playGame(player: Player, GAME_COST: int): String
+         }
+         Player --> SlotMachine: plays
+         class SlotMachine {
+         - currentPayout: int
+         - odds: int
+         - {static} SYMBOLS: String[]
+         - RANDOM: Random
+         - player: Player
+         + playTheSlots(moneyPaid: int): int
+         + spinRow(): String[]
+         - setOddsBasedOnPayout(): void
+         - findMatchingSymbol(row: String[]): String
+         }
+         Player --> Lotto: plays
+         Lotto -- LottoCore
+         class Lotto {
+         }
+         class LottoCore {
+         - int number1
+         - int number2
+         - int number3
+         - int currentPayout
+         - boolean didYouWin
+         - LottoCore()
+         - int getCurrentPayout()
+         - void setCurrentPayout(int)
+         - boolean getDidYouWin()
+         - void rollRandomNumbers()
+         - void compareNumbers(int, int, int)
+         - int playLotto(int, int, int, int)
+         + static void playLottoGame(scanner: Scanner,player: Player)
+         }
+         Player --> Roulette: plays
+         class Roulette {
+         - amountOfTimesHouseLost: int
+         - payout: int
+         - guidedWin: boolean
+         + play (player: Player): void
+         - shouldFailSafeBeUsed(): void
+         - rollTheRoulette(numberChosen: int, Player player): void
+         }
+         @enduml

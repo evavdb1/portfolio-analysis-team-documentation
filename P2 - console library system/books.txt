@@ -1,0 +1,39 @@
+0001, The Bible, VARIOUS , 33, 000.000.0001, AVAILABLE, false
+0002, Mendel's Dwarf, MAWER Simon, 1998, 526.945.6894, CHECKED_OUT, false
+0003, En appels aan de overkant, VAN_DAELE Henri, 1991, 025.648.3115, CHECKED_OUT, false
+0004, This book will save your Life, HOMES A.m., 2006, 249.364.8236, CHECKED_OUT, false
+0005, Diary of Adrian Mole age 13 and 3/4, TOWNSEND Sue, 1982, 129.457.9645, AVAILABLE, false
+0006, We Two: Victoria & Albert. Rulers partners and rivals, GILL Gillian, 2009, 217.791.3366, AVAILABLE, false
+0007, Always look on the bright side of life: A Sortabiography, IDDLE Eric, 2018, 458.214.9777, AVAILABLE, false
+0008, The electric Acid kool-Aid Test, WOLFE Tom, 1968, 125.345.9545, AVAILABLE, false
+0009, Shakey: Neil Young's biography, MCDONOUGH Jimmy, 2002, 126.475.124, AVAILABLE, false
+0010, Waging heavy peace, YOUNG Neil, 2013, 658.644.6399, CHECKED_OUT, false
+0011, 1984, ORWELL George, 1949, 123.456.7890, AVAILABLE, false
+0012, Ons Kookboek, DE Boerinnenbond, 1927, 256.487.6944, AVAILABLE, false
+0013, David de kabouter, HUYGEN Wil, 1985, 634.975.1248, CHECKED_OUT, false
+0014, Dik Trom, KIEVIET C.J., 1891, 000.014.2187, AVAILABLE, false
+0015, The sinister secret of F.K. Bower, HOROWITZ Anthony, 1979, 324.874.9666, AVAILABLE, false
+0016, Crime and Punishment, DOSTOEVSKY Fyodor, 1866, 487.654.5448, AVAILABLE, false
+0017, Mein Kampf, HITLER Adolf, 1926, 666.666.6666, REMOVED, true
+0018, Ulysses, JOYCE James, 1920, 054.894.6327, AVAILABLE, false
+0019, odyssee, HOMERUS , -250, 000.052.1549, CHECKED_OUT, false
+0020, Hamlet, SHAKESPEARE William, 1623, 065.489.8594, CHECKED_OUT, false
+0021, On the origin of species, DARWIN Charles, 1859, 056.971.1458, CHECKED_OUT, false
+0022, One flew over the cuckoo's nest, KESEY Ken, 1962, 458.584.9664, AVAILABLE, false
+0023, Jommeke, NYS Jef, 1959, 542.687.6499, CHECKED_OUT, false
+0024, Sapiens - A brief history of humankind, HARARI Yuval, 2011, 006.231.6097, AVAILABLE, false
+0025, De bello Gallico, CAESAR Julius, -46, 001.879.2114, AVAILABLE, false
+0026, Crime and Punishment, DOSTOEVSKY Fyodor, 1866, 487.654.5448, AVAILABLE, false
+0027, The growing pains of Adrian Mole, TOWNSEND Sue, 1984, 129.457.9646, CHECKED_OUT, false
+0028, The Falcon's Malteser, HOROWITZ Anthony, 1986, 541.165.9778, CHECKED_OUT, false
+0029, Jonathan Livingston Seagull, BACH Richard, 1970, 521.559.1478, CHECKED_OUT, false
+0030, Grimm's Fairy Tales, GRIMM Jacob_wilhelm, 1812, 004.876.1481, CHECKED_OUT, false
+0031, The diary of a young girl, FRANK Anne, 1947, 808.521.9554, AVAILABLE, false
+0032, Public enemy number two, HOROWITZ Anthony, 1987, 845.127.6653, AVAILABLE, false
+0033, The true confessions of Adrian Albert Mole, TOWNSEND Sue, 1989, 041.362.4501, AVAILABLE, false
+0034, Adrian Mole: the wilderness years, TOWNSEND Sue, 1993, 761.265.8444, AVAILABLE, false
+0035, Adrian Mole: the cappuccino years, TOWNSEND Sue, 1999, 546.845.8455, AVAILABLE, false
+0036, Adrian Mole and the weapons of mass destruction, TOWNSEND Sue, 2004, 125.654.7811, CHECKED_OUT, false
+0037, The lost diaries of Adrian Mole, TOWNSEND Sue, 2008, 657.832.1229, CHECKED_OUT, false
+0038, Adrian Mole: the the prostrate years, TOWNSEND Sue, 2009, 124.954.7856, CHECKED_OUT, false
+0039, Wilt, SHARPE Tom, 1976, 546.216.8456, AVAILABLE, false

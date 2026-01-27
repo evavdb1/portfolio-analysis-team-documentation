@@ -1,0 +1,72 @@
+✅ CHECKLIST – BlogCentralProject
+1. Projectstructuur & Setup                             JA	NEE
+
+Spring Boot project start correct op zonder fouten		☑	☐
+Juiste structuur (controller, service, repository, model)	☑	☐
+MySQL correct geconfigureerd (application.properties)	☑	☐
+Database automatisch aangemaakt (JPA/Hibernate)			☑	☐
+Password hashing correct toegepast (BCrypt)			    ☑	☐
+
+2. Datamodel
+User-entiteit bevat verplichte velden + unieke username	☑	☐
+BlogPost bevat titel, content, author, timestamp, likes	☑	☐
+Comment gekoppeld aan User + BlogPost				    ☑	☐
+Relaties correct (OneToMany, ManyToOne, cascade)		☑	☐
+Lazy / Fetch types correct toegepast				    ☑	☐
+
+3. User Management
+Registratie werkt + validatie					        ☑	☐
+Dubbele usernames geweigerd					            ☑	☐
+Password & retypePassword vergeleken				    ☑	☐
+Login werkt en geeft JWT-token					        ☑	☐
+JWT correct gebruikt bij beveiligde endpoints			☑	☐
+Eigen profiel ophalen						            ☑	☐
+Profiel aanpassen (zonder username)				        ☑	☐
+Profiel verwijderen						                ☑	☐
+Keep-me-logged-in (langere token)				        ☑	☐
+
+4. BlogPost Functionaliteiten
+Blogpost aanmaken (alleen ingelogd)				        ☑	☐
+Blogpost bewerken (alleen auteur)				        ☑	☐
+Blogpost verwijderen (alleen auteur)				    ☑	☐
+Blogposts ophalen (publiek)					            ☑	☐
+Sortering (newest / oldest / popular)				    ☑	☐
+Paginatie (default 6)						            ☑	☐
+Detail toont auteur, likes, comments				    ☑	☐
+Like-functie (alleen ingelogd)					        ☑	☐
+
+5. Comment Functionaliteiten
+Comment toevoegen (alleen ingelogd)				        ☑	☐
+Comment bewerken (alleen auteur)				        ☑	☐
+Comment verwijderen (alleen auteur)				        ☑	☐
+Moderatie door blogpost-auteur					        ☑	☐
+Comments opgehaald via blogpost detail				    ☑	☐
+
+6. Zoekfunctionaliteit
+Zoeken via /search?x=						            ☑	☐
+Zoekresultaten op titel / auteur				        ☑	☐
+Zoeken op tags							                ☐	☑
+Sortering binnen zoekresultaten					        ☐	☑
+
+(zoek werkt functioneel, maar is nog niet volledig gelijk aan /blogposts)
+
+7. Statistieken
+/stats/online werkt correct					            ☑	☐
+/stats/visitors werkt correct					        ☑	☐
+
+8. Postman Testing
+Alle endpoints getest via Postman				        ☑	☐
+Geldige token → toegang						            ☑	☐
+Ongeldige token → 401						            ☑	☐
+Geen eigenaarschap → 403					            ☑	☐
+Register/Login correcte responses				        ☑	☐
+CRUD Users, Blogposts, Comments					        ☑	☐
+Edge cases getest						                ☑	☐
+Postman collectie geëxporteerd					        ☑	☐
+
+9. Eindcontrole
+Alle kernfunctionaliteiten geïmplementeerd			    ☑	☐
+Code is duidelijk en professioneel				        ☑	☐
+Project start zonder fouten					            ☑	☐
+Database consistent en stabiel					        ☑	☐
+Documentatie aanwezig (README/Postman)				    ☑	☐

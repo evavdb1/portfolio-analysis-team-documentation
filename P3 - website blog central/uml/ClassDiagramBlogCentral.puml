@@ -1,0 +1,236 @@
+@startuml
+class BlogCentralProjectApplication <<Application>> {
+    +main(args : String[]) : void
+}
+
+' ENTITY
+
+class User {
+    - id : Long
+    - firstName : String
+    - lastName : String
+    - username : String
+    - password : String
+    - email : String
+    - avatarUrl : String
+    - street : String
+    - houseNr : String
+    - city : String
+    - zip : String
+    - role : Role
+    - blogPosts : List
+    - comments : List
+}
+
+class BlogPost {
+    - id : Long
+    - title : String
+    - content : String
+    - createdAt : Date
+    - likes : int
+    - author : User
+    - comments : List
+}
+
+class Comment {
+    - id : Long
+    - content : String
+    - createdAt : Date
+    - user : User
+    - blogpost : BlogPost
+}
+
+enum Role {
+    ADMIN
+    USER
+}
+
+User "1" -- "0..*" BlogPost : author
+User "1" -- "0..*" Comment : writes
+BlogPost "1" -- "0..*" Comment : has
+
+' DTO
+
+class UserResponse {
+    - id : Long
+    - username : String
+    - email : String
+    - role : Role
+}
+
+class BlogPostResponse {
+    - id : Long
+    - title : String
+    - content : String
+    - createdAt : LocalDateTime
+    - likes : int
+    - authorId : Long
+    - authorUsername : String
+    - comments : List
+ }
+
+class CommentResponse {
+    - id : Long
+    - content : String
+    - createdAt : LocalDateTime
+    - authorId : Long
+    - authorUsername : String
+ }
+
+class UserLoginRequest {
+    - userName : String
+    - password : String
+ }
+
+class UserRegisterRequest {
+    - firstName : String
+    - lastName : String
+    - userName : String
+    - email : String
+    - password : String
+    - retypePassword : String
+ }
+
+class BlogPostCreateRequest {
+    - title : String
+    - content : String
+ }
+
+class CommentCreateRequest {
+    - content : String
+ }
+
+class BlogPostUpdateRequest {
+    - title : String
+    - content : String
+ }
+
+class CommentUpdateRequest {
+    - content : String
+ }
+
+class SearchResponse {
+    - blogposts : List
+    - users : List
+ }
+
+BlogPostResponse "1" o-- "0..*" CommentResponse : comments
+
+' REPOSITORY
+
+interface UserRepository
+interface BlogPostRepository
+interface CommentRepository
+
+UserRepository -- User
+BlogPostRepository -- BlogPost
+CommentRepository -- Comment
+
+' SERVICE
+
+class AuthService {
+    + getAuthenticatedUser() : User
+ }
+
+class UserService {
+    + register()
+    + getById()
+    + update()
+    + delete()
+}
+
+class UserServiceImpl {}
+
+class BlogPostService {
+    + createPost(request, author)
+    + updatePost(id, request, currentUser)
+    + deletePost(id, currentUser)
+    + getAllPosts(sort, pageable)
+    + likePost(id)
+    + getPostById(id)
+}
+
+class BlogPostServiceImpl {}
+
+class CommentService {
+    + addComment()
+    + updateComment()
+    + deleteComment()
+}
+
+class SearchService {
+    + search(query : String)
+}
+
+class StatsService {
+    + getOnlineUsers() : int
+    + getVisitors() : int
+}
+
+AuthService --> UserRepository
+UserServiceImpl --> UserService
+UserService --> UserRepository
+BlogPostServiceImpl --> BlogPostService
+BlogPostService --> BlogPostRepository
+CommentService --> CommentRepository
+SearchService --> BlogPostRepository
+StatsService --> OnlineUserTracker
+
+' SECURITY
+
+class JwtTokenUtil {
+    + generateToken(username)
+    + generateRememberMeToken(username)
+    + isTokenValid(token)
+    + extractUsername(token)
+}
+
+class JWTAuthenticationFilter
+class JWTAccessDeniedHandler
+class JWTAuthenticationEntryPoint
+class CustomUserDetails
+class CustomUserDetailsService
+class SecurityConfig
+
+JWTAuthenticationFilter --> JwtTokenUtil
+JWTAuthenticationFilter --> CustomUserDetailsService
+CustomUserDetailsService --> UserRepository
+
+' STATISTICS
+
+class OnlineUserTracker {
+    - onlineUsers : Set<String>
+    - visitors : Set<String>
+    + markOnline(username)
+    + markOffline(username)
+}
+
+' CONTROLLER
+
+class AuthController
+class UserController
+class BlogPostController
+class CommentController
+class SearchController
+class StatsController
+
+AuthController --> AuthService
+UserController --> UserService
+BlogPostController --> BlogPostService
+CommentController --> CommentService
+SearchController --> SearchService
+StatsController --> StatsService
+
+' EXCEPTION
+
+class GlobalExceptionHandler {
+    + handleNotFound (ex, request))
+    + handleUserNameAlreadyExists (ex, request)
+    + handleInvalidCredentials (ex, request)
+    + handleUnauthorizedException (ex, request)
+    + handleBadRequestException
+    + handleMethodArgumentNotValidException (ex, request)
+    + handleExceptions (ex, request)
+}
+
+@enduml
