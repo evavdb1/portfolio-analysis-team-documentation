@@ -1,0 +1,91 @@
+@startuml
+Package "Models" {
+class Book {
+  - title: String
+  - author: String
+  - publicationYear: int
+  - ISBN: String
+  - availableCopies: int
+}
+
+class Member {
+  - name: String
+  - age: int
+  - memberId: Long
+  - email: String
+}
+
+class Loan {
+  - loanDate: Date
+  - dueDate : Date
+  - returnDate: Date
+  - status : boolean
+  - memberId : long
+  - bookId : long
+  }
+}
+
+Package "Service" {
+
+class MemberService {
+  - MemberRepository : memberRepository
+  + addMember(Member)
+  + removeMember(Long)
+  + listMembers()
+
+  }
+class BookService {
+  - BookRepository : bookRepository
+  + addBook(book: Book)
+  + removeBook(book: Book)
+  + listBook list()
+  + searchBook(String)
+  }
+class LoanService {
+  - LoanRepository : loanRepository
+  + loanBook(book: Book)
+  + returnBook(book: Book)
+  + calculateFine(Date dueDate, Date returnDate)
+  }
+}
+
+Package "Repository" {
+class LoanRepository {
+  + save(Loan)
+  + findById(Long)
+  + findActiveByMember(Long)
+  + findAll()
+
+  }
+class BookRepository {
+ + save(Book)
+ + findById(Long)
+ + findAll()
+ + findByTitle(String)
+}
+class MemberRepository {
+- members: List<Member>
+  + save(Member)
+  + deleteById(Long)
+  + findById(Long)
+  + findAll()
+
+}
+}
+
+class LibrarySystemMain {
+
+}
+
+BookService --> BookRepository : implements
+MemberService --> MemberRepository : implements
+LoanService --> LoanRepository : implements
+BookRepository --> Book : manages >
+MemberRepository --> Member : manages >
+LoanRepository --> Loan : manages >
+LoanService <-- BookService : relates to >
+LoanService <-- MemberService : borrowed by >
+
+
+
+@enduml
